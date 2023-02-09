@@ -21,11 +21,11 @@ class PetFriends:
         result = ''
         try:
             result = res.json()
-        except:
+        except json.decoder.JSONDecodeError:
             result = res.text
         return status, result
 
-    def get_list_of_pets(self, auth_key: json, filter: str) -> json:
+    def get_list_of_pets(self, auth_key: json, filter: str = '') -> json:
         '''Метод делает get запрос к API сервера с секретным ключом в headers и
           пустым  значением в filter и возвращает: код статуса запроса и список
            всех питомцев в формате Json либо в виде строки'''
@@ -38,7 +38,7 @@ class PetFriends:
         result = ''
         try:
             result = res.json()
-        except:
+        except json.decoder.JSONDecodeError:
             result = res.text
         return status, result
 
@@ -53,10 +53,7 @@ class PetFriends:
                 'pet_photo': (pet_photo, open(pet_photo, 'rb'), 'image/jpeg')
             })
 
-        headers = {
-            'auth_key': auth_key['key'],
-            'Content-Type': data.content_type
-        }
+        headers = {'auth_key': auth_key['key'], 'Content-Type': data.content_type}
 
         res = requests.post(self.base_url + '/api/pets', headers=headers, data=data)
 
@@ -64,17 +61,14 @@ class PetFriends:
         result = ''
         try:
             result = res.json()
-        except:
+        except json.decoder.JSONDecodeError:
             result = res.text
         return status, result
 
     def delete_pets(self, auth_key: json, pet_id: str) -> json:
         '''Метод делает delete запрос к API сервера, удоляет питомца по его ID и возвращает
         статус запроса'''
-        headers = {
-            'auth_key': auth_key['key'],
-            'pet_id': pet_id
-        }
+        headers = {'auth_key': auth_key['key'], 'pet_id': pet_id}
 
         res = requests.delete(self.base_url + 'api/pets/' + pet_id, headers=headers)
 
@@ -82,17 +76,14 @@ class PetFriends:
         result = ''
         try:
             result = res.json()
-        except:
+        except json.decoder.JSONDecodeError:
             result = res.text
         return status, result
 
     def update_pet_info(self, auth_key: json, pet_id: str, name: str, animal_type: str, age: str) ->json:
         '''Метод делает put запррс к API сервера изменяет данные питомца и возвращает код статуса запроса и
         измененные данные в формате json'''
-        headers = {
-            'auth_key': auth_key['key'],
-            'pet_id': pet_id
-        }
+        headers = {'auth_key': auth_key['key'], 'pet_id': pet_id}
         data = {
             'name': name,
             'animal_type': animal_type,
