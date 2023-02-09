@@ -1,4 +1,4 @@
-from app import PetFriends
+from api import PetFriends
 from settings import valid_email, valid_password, invalid_email, invalid_password
 import os
 
@@ -146,7 +146,7 @@ def test_add_pet_with_a_lot_of_words_in_variable_name(animal_type='кот', age=
     assert word_count < 10, 'Питомец добавлен с именем больше 10 слов'
 
 
-def test_add_pet_with_special_characters_in_variable_animal_type(name='Fedor', age='3', pet_photo='images/Fedor.jpg'):
+def test_add_pet_with_special_characters_in_variable_animal_type(name='рыжик', age='3', pet_photo='images/рыжик.jpg'):
     '''Негативный сценарий. Добавление питомца с специальными символами вместо букв в переменной animal_type.
     Тест не будет пройден если питомец будет добавлен на сайт с спец.символами вместо букв в поле порода.
     '''
@@ -179,7 +179,7 @@ def test_add_pet_with_numbers_in_variable_animal_type(name='Backs', animal_type=
     assert animal_type not in result['animal_type'], 'Питомец добавлен на сайт с цифрами вместо букв в поле порода'
 
 
-def test_add_pet_with_a_lot_of_words_in_variable_animal_type(name='Fedor', age='2', pet_photo='images/Fedor.jpg'):
+def test_add_pet_with_a_lot_of_words_in_variable_animal_type(name='вася', age='2', pet_photo='images/вася.jpg'):
     '''Негативный сценарий. Добавления питомца название породы которого превышает 10 слов
     Тест не будет пройден если питомец будет добавлен на сайт с названием породы состоящим из более 10 слов'''
 
