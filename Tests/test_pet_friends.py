@@ -167,7 +167,7 @@ def test_add_pet_with_special_characters_in_variable_animal_type(name='рыжи�
 
 
 def test_add_pet_with_numbers_in_variable_animal_type(name='Backs', animal_type='34562', age='3',
-                                                      pet_photo='images/Fedor.jpg'):
+                                                      pet_photo='images/рыжик.jpg'):
     '''Негативный сценарий. Добавление питомца с цифрами вместо букв в переменной animal_type.
     Тест не будет пройден если питомец будет добавлен на сайт с цифрами вместо букв в поле порода.'''
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
