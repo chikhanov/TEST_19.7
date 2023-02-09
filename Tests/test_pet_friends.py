@@ -55,7 +55,7 @@ def test_delete_pet():
     assert pet_id not in my_pets.values()
 
 
-def test_update_pet_info(name='кот', animal_type='измененный', age='7'):
+def test_update_pet_info(name='Вася', animal_type='измененный', age='7'):
     '''Проверяем возможность изменения данных питомца'''
     _, api_key = pf.get_app_key(valid_email, valid_password)
     _, my_pets = pf.get_list_of_pets(api_key, 'my_pets')
@@ -68,7 +68,7 @@ def test_update_pet_info(name='кот', animal_type='измененный', age=
         raise Exception("Питомцы отсутствуют")
 
 
-def test_add_pets_with_valid_data_without_photo(name='МурзикБезФото', animal_type='кот', age='6'):
+def test_add_pets_with_valid_data_without_photo(name='Мурзик', animal_type='кот', age='6'):
     '''Проверяем возможность добавления нового питомца без фото'''
     _, api_key = pf.get_app_key(valid_email, valid_password)
     status, result = pf.add_new_pet_without_photo(api_key, name, animal_type, age)
@@ -77,7 +77,7 @@ def test_add_pets_with_valid_data_without_photo(name='МурзикБезФото
     assert result['name'] == name
 
 
-def test_add_photo_at_pet(pet_photo='images/German.jpg'):
+def test_add_photo_at_pet(pet_photo='images/вася.jpg'):
     '''Проверяем возможность добавления новой фотографии питомца'''
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
 
@@ -95,8 +95,8 @@ def test_add_photo_at_pet(pet_photo='images/German.jpg'):
         raise Exception("Питомцы отсутствуют")
 
 
-def test_add_pet_negative_age_number(name='Fedor', animal_type='cat', age='-3', pet_photo='images/Fedor.jpg'):
-    '''Проверка с негативным сценарием. Добавление питомца с отрицательным числом в переменной age.
+def test_add_pet_negative_age_number(name='Бакс', animal_type='кот', age='-3', pet_photo='images/вася.jpg'):
+    '''Негативный сценарий. Добавление питомца с отрицательным числом в переменной age.
     Тест не будет пройден если питомец будет добавлен на сайт с отрицательным числом в поле возраст.
      '''
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
@@ -107,8 +107,8 @@ def test_add_pet_negative_age_number(name='Fedor', animal_type='cat', age='-3', 
     assert age not in result['age'], 'Питомец добавлен на сайт с отрицательным числом в поле возраст'
 
 
-def test_add_pet_with_four_digit_age_number(name='Fedor', animal_type='cat', age='1234', pet_photo='images/Fedor.jpg'):
-    '''Проверка с негативным сценарием. Добавление питомца с числом более трех знаков в переменной age.
+def test_add_pet_with_four_digit_age_number(name='Рыжик', animal_type='кот', age='1234', pet_photo='images/рыжик.jpg'):
+    '''Негативный сценарий. Добавление питомца с числом более трех знаков в переменной age.
     Тест не будет пройден ели питомец будет добавлен на сайт с числом превышающим три знака в поле возраст.'''
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
 
@@ -119,7 +119,7 @@ def test_add_pet_with_four_digit_age_number(name='Fedor', animal_type='cat', age
     assert len(number) < 4, 'Питомец добавлен на сайт с числом привышающим 3 знака в поле возраст'
 
 
-def test_add_pet_with_empty_value_in_variable_name(name='', animal_type='cat', age='2', pet_photo='images/Fedor.jpg'):
+def test_add_pet_with_empty_value_in_variable_name(name='', animal_type='кот', age='12', pet_photo='images/вася.jpg'):
     '''Проверяем возможность добавления питомца с пустым значением в переменной name
     Тест не будет пройден если питомец будет добавлен на сайт с пустым значением в поле "имя"'''
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
@@ -130,11 +130,11 @@ def test_add_pet_with_empty_value_in_variable_name(name='', animal_type='cat', a
     assert result['name'] != '', 'Питомец добавлен на сайт с пустым значением в имени'
 
 
-def test_add_pet_with_a_lot_of_words_in_variable_name(animal_type='cat', age='2', pet_photo='images/Fedor.jpg'):
-    '''Проверка с негативным сценарием. Добавления питомца имя которого превышает 10 слов
+def test_add_pet_with_a_lot_of_words_in_variable_name(animal_type='кот', age='2', pet_photo='images/вася.jpg'):
+    '''Негативный сценарий. Добавления питомца имя которого превышает 10 слов
     Тест не будет пройден если питомец будет добавлен на сайт с именем состоящим из более 10 слов'''
 
-    name = 'Пабло Диего Хозе Франциско де Паула Хуан Непомукено Криспин Криспиано де ла Сантисима Тринидад Руиз и Пикассо'
+    name = 'вася мурзик кот бакс персик буся муся рыжик мурзик педро боря бакс джек кот в сапогах'
 
     _, api_key = pf.get_app_key(valid_email, valid_password)
     status, result = pf.add_new_pets(api_key, name, animal_type, age, pet_photo)
@@ -147,10 +147,10 @@ def test_add_pet_with_a_lot_of_words_in_variable_name(animal_type='cat', age='2'
 
 
 def test_add_pet_with_special_characters_in_variable_animal_type(name='Fedor', age='3', pet_photo='images/Fedor.jpg'):
-    '''Проверка с негативным сценарием. Добавление питомца с специальными символами вместо букв в переменной animal_type.
+    '''Негативный сценарий. Добавление питомца с специальными символами вместо букв в переменной animal_type.
     Тест не будет пройден если питомец будет добавлен на сайт с спец.символами вместо букв в поле порода.
     '''
-    animal_type = 'Cat%@'
+    animal_type = 'Cat%@№"%'
     symbols = '#$%^&*{}|?/><=+_~@'
     symbol = []
 
@@ -166,9 +166,9 @@ def test_add_pet_with_special_characters_in_variable_animal_type(name='Fedor', a
     assert symbol[0] not in result['animal_type'], 'Питомец добавлен с недопустимыми спец.символами'
 
 
-def test_add_pet_with_numbers_in_variable_animal_type(name='Fedor', animal_type='34562', age='3',
+def test_add_pet_with_numbers_in_variable_animal_type(name='Backs', animal_type='34562', age='3',
                                                       pet_photo='images/Fedor.jpg'):
-    '''Проверка с негативным сценарием. Добавление питомца с цифрами вместо букв в переменной animal_type.
+    '''Негативный сценарий. Добавление питомца с цифрами вместо букв в переменной animal_type.
     Тест не будет пройден если питомец будет добавлен на сайт с цифрами вместо букв в поле порода.'''
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
 
@@ -180,10 +180,10 @@ def test_add_pet_with_numbers_in_variable_animal_type(name='Fedor', animal_type=
 
 
 def test_add_pet_with_a_lot_of_words_in_variable_animal_type(name='Fedor', age='2', pet_photo='images/Fedor.jpg'):
-    '''Проверка с негативным сценарием. Добавления питомца название породы которого превышает 10 слов
+    '''Негативный сценарий. Добавления питомца название породы которого превышает 10 слов
     Тест не будет пройден если питомец будет добавлен на сайт с названием породы состоящим из более 10 слов'''
 
-    animal_type = 'артезиано нормандский бассет гриффон миттельшнауцер ньюфаундленд аргентинский дог помесь с бриар басерон'
+    animal_type = 'дворовый британец сиамской породы с большими ушами и полосатой спиной кот очень хороший и добрый'
 
     _, api_key = pf.get_app_key(valid_email, valid_password)
     status, result = pf.add_new_pets(api_key, name, animal_type, age, pet_photo)
